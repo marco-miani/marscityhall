@@ -1,0 +1,173 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Intern Management System - Mars City Hall</title>
+    <link href="{% static 'css/bootstrap.min.css' %}" rel="stylesheet" />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css"
+    />
+  </head>
+
+  <body class="d-flex flex-column min-vh-100">
+    <!-- Navbar Start -->
+    <nav class="navbar navbar-expand-lg bg-dark" data-bs-theme="dark">
+      <div class="container-fluid">
+        <a class="navbar-brand" href="#">Mars City Hall</a>
+        <button
+          class="navbar-toggler"
+          type="button"
+          data-bs-toggle="collapse"
+          data-bs-target="#navbarColor02"
+          aria-controls="navbarColor02"
+          aria-expanded="false"
+          aria-label="Toggle navigation"
+        >
+          <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarColor02">
+          <ul class="navbar-nav me-auto">
+            <li class="nav-item">
+              <a class="nav-link active" href="#">
+                <i class="fa-sharp fa-solid fa-envelope fa-lg"></i>
+                Home
+                <span class="visually-hidden">(current)</span>
+              </a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="#">
+                <i class="fa-sharp fa-solid fa-graduation-cap fa-lg"></i>
+                Intern Management System
+              </a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="#">
+                <i class="fa-sharp fa-solid fa-landmark"></i>
+                History
+              </a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="#">
+                <i class="fa-sharp fa-solid fa-envelope fa-lg"></i>
+                Contact Us
+              </a>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </nav>
+    <!-- Navbar End -->
+
+    <!-- Cards -->
+    <div class="container-fluid">
+      <div class="row">
+        <div class="col-12">
+          {% if intern %}
+          <div class="card bg-light mb-3 ms-4 me-4">
+            <div class="card-header">Intern Records</div>
+            <div class="card-body">
+              <p class="card-text">
+                <div class="table-responsive">
+
+                        <!-- Interns Table -->
+                    <table class="table table-hover">
+                        <thead>
+                          <tr>
+                            <th scope="col">Intern Registration Number</th>
+                            <th scope="col">First Name</th>
+                            <th scope="col">Last Name</th>
+                            <th scope="col">E-Mail</th>
+                            <th scope="col">Graduate Course</th>
+                            <th scope="col">Start Contract</th>
+                            <th scope="col">End Contract</th>
+                            <th scope="col">Actions</th>
+                          </tr>
+                        </thead>
+                        <tbody>
+                            {% for intern in intern %}
+                            <tr>
+                                <td>{{ intern.internNumber }}</td>
+                                <td>{{ intern.firstName }}</td>
+                                <td>{{ intern.lastName }}</td>
+                                <td>{{ intern.email }}</td>
+                                <td>{{ intern.graduateCourse }}</td>
+                                <td>{{ intern.startContract }}</td>
+                                <td>{{ intern.endContract }}</td>
+                                <td>
+                                    <!-- % url 'view_intern' intern.id % -->
+                                    <button type="button" class="btn btn-success me-1" href="#" data-bs-toggle="modal" data-bs-target="#myModal{{intern.id}}">
+                                        <i class="fa-sharp fa-solid fa-circle-info fa-lg"></i>
+                                    </button>
+
+                                    <!-- Modal View Intern -->
+                                    <div class="modal" id="myModal{{intern.id}}" tabindex="-1" aria-labelledby="myModalLabel1" aria-hidden="True">
+                                        <div class="modal-dialog" role="document">
+                                          <div class="modal-content">
+                                            <div class="modal-header">
+                                              <h5 class="modal-title">Intern: {{ intern.firstName }} {{ intern.lastName }}</h5>
+                                              <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close">
+                                                <span aria-hidden="true"></span>
+                                              </button>
+                                            </div>
+                                            <div class="modal-body">
+                                              <ul class="list-unstyled">
+                                                <li>Intern Number: <strong>{{ intern.internNumber }}</strong></li>
+                                                <li>First Name: <strong>{{ intern.firstName }}</strong></li>
+                                                <li>Last Name: <strong>{{ intern.lastName }}</strong></li>
+                                                <li>E-mail: <strong>{{ intern.email }}</strong></li>
+                                                <li>Course: <strong>{{ intern.graduateCourse }}</strong></li>
+                                                <li>Contract Start: <strong>{{ intern.startContract }}</strong></li>
+                                                <li>Contract End: <strong>{{ intern.endContract }}</strong></li>
+                                              </ul>
+                                              <!-- Modal View Intern End -->
+
+                                            </div>
+                                            <div class="modal-footer">
+                                              <button type="button" class="btn btn-primary" data-bs-dismiss="modal">Close</button>
+                                            </div>
+                                          </div>
+                                        </div>
+                                      </div>
+
+
+                                </td>
+                            </tr>
+                            {% endfor %}
+
+
+                        </tbody>
+                      </table>
+                      <!-- Interns Table End -->
+
+
+                </div>
+              </p>
+            </div>
+            {% else %}
+            <h5 class="alert alert-primary ms-4 me-4">No Interns recorded</h5>
+            {% endif %}
+          </div>
+        </div>
+      </div>
+    </div>
+    <!-- Cards End -->
+
+    <footer class="mt-auto mb-4">
+      <div class="text-center">
+        <span>
+          Copyright &copy;
+          <script>
+            document.write(new Date().getFullYear());
+          </script>
+          Marco Miani
+        </span>
+      </div>
+    </footer>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+  </body>
+</html>
